@@ -66,7 +66,7 @@ private List<SlotCell> slots = new List<SlotCell>();
 			distance++;
 		}
 		float targetY = y - diff + spacing * distance;
-		DOTween.To(() => y, x => y = x, 0.0f, 1.0f)
+		DOTween.To(() => y, x => y = x, targetY, 1.0f)
 			.SetEase(Ease.OutBack)
 			.OnComplete(OnAllHoldersStopped);
 	}

@@ -3,14 +3,6 @@ using System.Collections;
 using DG.Tweening;
 public class SlotCell : MonoBehaviour
 {
-	public enum CellSymbol
-	{
-		EMPTY = 0,
-		COIN= 1,
-		FIRE = 2,
-		LIGHT = 3,
-		POISEN = 4
-	}
 
 	public Sprite[] spritePool;
 	public CellSymbol type = CellSymbol.EMPTY;
