@@ -1,27 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
-using DG.Tweening;
-public class SlotCell : MonoBehaviour
+
+namespace Assets.Scripts
 {
-
-	public Sprite[] spritePool;
-	public CellSymbol type = CellSymbol.EMPTY;
-	void Awake()
+	public class SlotCell : MonoBehaviour
 	{
-		setRandomType();
-	}
+		public CellSymbol type = CellSymbol.EMPTY;
+		public void SetOffset(float offsetY) {
+			this.transform.position = new Vector3(transform.position.x, offsetY, transform.position.z);
+		}
 
-	public void SetUvOffset(float offsetY) {
-		this.transform.position = new Vector3(transform.position.x, offsetY, transform.position.z);
-	}
-
-	public void setRandomType() {
-		var values = CellSymbol.GetValues(typeof(CellSymbol));
-		type = (CellSymbol)values.GetValue(Random.Range(0, values.Length));
-		setTextureByType(type);
-	}
-
-	void setTextureByType(CellSymbol type) {
-		GetComponent<SpriteRenderer>().sprite = spritePool[(int)type];
+		public void setType(SlotType slotType)
+		{
+			GetComponent<SpriteRenderer>().sprite = slotType.sprite;
+			type = slotType.type;
+		}
 	}
 }
