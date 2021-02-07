@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class FadeLayer : MonoBehaviour {
+
+	public GameObject spinEffect;
+	public float fadeDuration = 0.3f;
+	public float fadeInValue = 0.5f;
+	public float fadeOutValue = 0.0f;
+
+	private TweenCallback fadeComplite;
+
+	public void FadeOnEffect(SlotType type, TweenCallback fadeComplite) {
+		this.fadeComplite = fadeComplite;
+		gameObject.SetActive(true);
+		spinEffect.SetActive(true);
+		GetComponent<Image>()
+			.DOFade(fadeInValue, fadeDuration)
+			.OnComplete(FadeOutEffect);
+
+		Image spinSprite = spinEffect.GetComponent<Image>();
+		spinSprite.sprite = type.sprite;
+		spinSprite.DOFade(fadeInValue, fadeDuration);
+	}
+
+	private void FadeOutEffect() {
+		GetComponent<Image>()
+			.DOFade(fadeOutValue, fadeDuration)
+			.OnComplete(Deactivate);
+		Image spinSprite = spinEffect.GetComponent<Image>();
+		spinSprite.DOFade(fadeOutValue, fadeDuration)
+			.OnComplete(fadeComplite);
+	}
+	private void Deactivate() {
+		gameObject.SetActive(false);
+		spinEffect.SetActive(false);
+	}
+}

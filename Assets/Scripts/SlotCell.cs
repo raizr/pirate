@@ -9,7 +9,7 @@ namespace Assets.Scripts
 			this.transform.position = new Vector3(transform.position.x, offsetY, transform.position.z);
 		}
 
-		public void setType(SlotType slotType)
+		public void SetType(SlotType slotType)
 		{
 			GetComponent<SpriteRenderer>().sprite = slotType.sprite;
 			type = slotType.type;
