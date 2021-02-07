@@ -24,6 +24,8 @@ namespace Assets.Scripts
 		public TextMeshProUGUI spinCounter;
 		public Slider spinCounterSlider;
 		public FadeLayer fadeLayer;
+		public Ship player;
+		public Ship enemy;
 		public int availableSpins;
 		public float delaySpins = 0.3f;
 		public float stopDelaySpins = 0.3f;
@@ -31,6 +33,7 @@ namespace Assets.Scripts
 		private int spinCount;
 		private int currentLineIndex;
 		private State spinState = State.NotStarted;
+		private SpinResult currentResult;
 
 		private void Awake() {
 			Button btn = spineButton.GetComponent<Button>();
@@ -45,6 +48,8 @@ namespace Assets.Scripts
 			if(spinCount > 0 && !isSpineStart) {
 				StopCoroutine("StopSpinCoroutine");
 				StartCoroutine("SetSpinLines");
+				player.StartGame();
+				enemy.StartGame();
 			}
 		}
 
@@ -108,24 +113,49 @@ namespace Assets.Scripts
 			}
 		}
 
-		void ApplyResult () {
-			var result = typeManager.CheckResult(spinLines[0].centerSlot.type,
+		void ApplyResult() {
+			currentResult = typeManager.CheckResult(spinLines[0].centerSlot.type,
 				spinLines[1].centerSlot.type,
 				spinLines[2].centerSlot.type);
 
+
+
+			if (enemy.IsAlive()) {
+				if (!player.IsAlive()) {
+					Lose();
+					return;
+				}
+			} else {
+				Win();
+				return;
+			}
 			spinState = State.Idle;
 			isSpineStart = false;
-			if (result.type == ResultType.NONE) {
+			if (currentResult.type == ResultType.NONE) {
 				spinOnClick();
 			}
 
 			else {
-				fadeLayer.FadeOnEffect(result.effect, spinOnClick);
+				fadeLayer.FadeOnEffect(currentResult.effect, ApplyEffect);
 			}
-			Debug.Log("type " +result.type + " damage " + result.damage + " money " + result.money);
+
+			Debug.Log("type " + currentResult.type + " damage " + currentResult.damage + " money " + currentResult.money);
 		}
 
+		void ApplyEffect() {
+			if (currentResult.type == ResultType.TAKE_ENEMY_DAMAGE) {
+				enemy.DoDamage(currentResult);
+			}
+			spinOnClick();
+		}
 
+		void Win() {
+			fadeLayer.FadeWinMessage();
+		}
+
+		void Lose() {
+
+		}
 		void OnGUI() {
 			spinCounter.text = spinCount + "/" + availableSpins;
 		}

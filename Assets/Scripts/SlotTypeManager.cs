@@ -16,7 +16,7 @@ namespace Assets.Scripts
 	public class SpinResult
 	{
 		public ResultType type = ResultType.NONE;
-		public SlotType effect = new SlotType();
+		public SlotType effect;
 		public float damage;
 		public float money;
 	}

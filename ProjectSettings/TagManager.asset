@@ -47,3 +47,9 @@ TagManager:
   - name: slotholder
     uniqueID: 285810787
     locked: 0
+  - name: healthBars
+    uniqueID: 3192319565
+    locked: 0
+  - name: UI
+    uniqueID: 1763569307
+    locked: 0

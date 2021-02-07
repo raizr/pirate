@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Assets.Scripts;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FadeLayer : MonoBehaviour {
 
 	public GameObject spinEffect;
+	public GameObject message;
 	public float fadeDuration = 0.3f;
 	public float fadeInValue = 0.5f;
 	public float fadeOutValue = 0.0f;
@@ -35,8 +37,18 @@ public class FadeLayer : MonoBehaviour {
 		spinSprite.DOFade(fadeOutValue, fadeDuration)
 			.OnComplete(fadeComplite);
 	}
+	
+	public void FadeWinMessage() {
+		gameObject.SetActive(true);
+		GetComponent<Image>()
+			.DOFade(fadeInValue, fadeDuration);
+		TextMeshProUGUI text = message.GetComponent<TextMeshProUGUI>();
+		message.SetActive(true);
+		DOTween.ToAlpha(() => text.color, y => text.color = y, fadeInValue, fadeDuration);
+	}
 	private void Deactivate() {
 		gameObject.SetActive(false);
 		spinEffect.SetActive(false);
+		message.SetActive(false);
 	}
 }
