@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class Ship : MonoBehaviour {
 
+	public enum ShipState {
+		Idle,
+		Attack,
+		Stun,
+		Sinked
+	}
+
+
 	public Slider healthBar;
 
 	public float health = 100.0f;
@@ -13,6 +21,8 @@ public class Ship : MonoBehaviour {
 	public float damage = 1;
 	public int accuracy = 75;
 	public float time = 60.0f;
+	private ShipState currentState = ShipState.Idle;
+	private ShipState previousState = ShipState.Idle;
 
 	void Awake() {
 		healthBar.minValue = 0.0f;
@@ -21,26 +31,36 @@ public class Ship : MonoBehaviour {
 	}
 
 	public void StartGame() {
+		currentState = ShipState.Attack;
 		InvokeRepeating("DoDamage", 0, time);
 	}
 
 	public void StopGame() {
+		currentState = ShipState.Sinked;
 		CancelInvoke("DoDamage");
 	}
+	public void SetStun(float stunTime) {
+		StartCoroutine(StunTime(stunTime));
+	}
 
-	void Update()
-    {
-        
-    }
+	IEnumerator StunTime(float stunTime) {
+		previousState = currentState;
+		currentState = ShipState.Stun;
+		yield return new WaitForSeconds(stunTime);
+		currentState = previousState;
+	}
 
-	public void DoDamage(SpinResult effectDamage) {
-		currentHealth -= effectDamage.damage;
-		if (currentHealth <= 0.0f) {
-			StopGame();
+	public void DoDamage(float fixedDamage) {
+		if (currentState == ShipState.Stun) {
+			return;
 		}
+		currentHealth -= fixedDamage;
 	}
 
 	void DoDamage() {
+		if (currentState == ShipState.Stun) {
+			return;
+		}
 		int value = Random.Range(0, 100);
 		if (value <= accuracy) {
 			currentHealth -= damage;

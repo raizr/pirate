@@ -16,7 +16,7 @@ public class FadeLayer : MonoBehaviour {
 
 	private TweenCallback fadeComplite;
 
-	public void FadeOnEffect(SlotType type, TweenCallback fadeComplite) {
+	public void FadeOnEffect(Sprite slotSprite, TweenCallback fadeComplite) {
 		this.fadeComplite = fadeComplite;
 		gameObject.SetActive(true);
 		spinEffect.SetActive(true);
@@ -25,7 +25,7 @@ public class FadeLayer : MonoBehaviour {
 			.OnComplete(FadeOutEffect);
 
 		Image spinSprite = spinEffect.GetComponent<Image>();
-		spinSprite.sprite = type.sprite;
+		spinSprite.sprite = slotSprite;
 		spinSprite.DOFade(fadeInValue, fadeDuration);
 	}
 

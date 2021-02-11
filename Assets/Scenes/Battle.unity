@@ -519,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 179849442}
   - component: {fileID: 179849443}
+  - component: {fileID: 179849444}
   m_Layer: 0
   m_Name: poisen
   m_TagString: Untagged
@@ -554,13 +555,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   sprite: {fileID: 21300000, guid: db3acab2dadfd5541b7077542725def2, type: 3}
-  frequency: 70
-  damage: 30
+  frequency: 50
+--- !u!114 &179849444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179849441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b39adb2643935341bf4165e8da4d639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
   multiplierX2: 1
-  multiplierX3: 1
-  money: 100
-  moneyMultiplierX2: 50
-  moneyMultiplierX3: 100
+  multiplierX3: 1.4
 --- !u!1 &206897076
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +933,7 @@ GameObject:
   m_Component:
   - component: {fileID: 408891595}
   - component: {fileID: 408891596}
+  - component: {fileID: 408891597}
   m_Layer: 0
   m_Name: fire
   m_TagString: Untagged
@@ -958,13 +969,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   sprite: {fileID: 21300000, guid: ca4ceedd55a3cb04d834cb27197dc0d5, type: 3}
-  frequency: 50
+  frequency: 70
+--- !u!114 &408891597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408891594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b39adb2643935341bf4165e8da4d639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   damage: 10
   multiplierX2: 1
   multiplierX3: 1.4
-  money: 0
-  moneyMultiplierX2: 0
-  moneyMultiplierX3: 0
 --- !u!1 &505992318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,12 +1188,6 @@ MonoBehaviour:
   type: 0
   sprite: {fileID: 21300000, guid: c9b6613f23164984485a892559965bea, type: 3}
   frequency: 50
-  damage: 0
-  multiplierX2: 1
-  multiplierX3: 1
-  money: 0
-  moneyMultiplierX2: 50
-  moneyMultiplierX3: 100
 --- !u!1 &610919863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,13 +1584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 3
   sprite: {fileID: 21300000, guid: c45c757e36f2ada4fbbdbe4dc2549ccf, type: 3}
-  frequency: 100
-  damage: 20
-  multiplierX2: 1
-  multiplierX3: 1
-  money: 100
-  moneyMultiplierX2: 50
-  moneyMultiplierX3: 100
+  frequency: 50
 --- !u!1 &753804504
 GameObject:
   m_ObjectHideFlags: 0
@@ -2516,7 +2524,7 @@ MonoBehaviour:
   availableSpins: 30
   delaySpins: 0.3
   stopDelaySpins: 0.3
-  stopSpinTime: 1.5
+  stopSpinTime: 3
 --- !u!212 &1037717772
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3368,12 +3376,6 @@ MonoBehaviour:
   type: 1
   sprite: {fileID: 21300000, guid: ee5c2f01797b2e4429dbf1c4d2aae243, type: 3}
   frequency: 50
-  damage: 0
-  multiplierX2: 1
-  multiplierX3: 1
-  money: 100
-  moneyMultiplierX2: 1
-  moneyMultiplierX3: 1.5
 --- !u!1001 &1479802522
 PrefabInstance:
   m_ObjectHideFlags: 0

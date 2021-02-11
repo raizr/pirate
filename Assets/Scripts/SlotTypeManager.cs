@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Effects;
+using UnityEditor.Animations;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Assets.Scripts
 {
+	public enum Multiplier {
+		X1,
+		X2,
+		X3
+	}
 
 	public enum ResultType
 	{
@@ -16,9 +23,8 @@ namespace Assets.Scripts
 	public class SpinResult
 	{
 		public ResultType type = ResultType.NONE;
-		public SlotType effect;
-		public float damage;
-		public float money;
+		public List<BaseEffect> effects;
+		public Sprite sprite;
 	}
 
 
@@ -32,8 +38,8 @@ namespace Assets.Scripts
 		[HideInInspector] public float[] weights;
 		private bool isInit = false;
 		private void Awake() {
-			gameObject.SetActive(false);
 			Init();
+			gameObject.SetActive(false);
 		}
 
 		public void Init() {
@@ -43,6 +49,7 @@ namespace Assets.Scripts
 			isInit = true;
 			var childs = GetComponentsInChildren<SlotType>(true);
 			for (int i = 0; i < childs.Length; i++) {
+				childs[i].Init();
 				types[childs[i].type] = childs[i];
 			}
 			SetWeights();
@@ -93,14 +100,14 @@ namespace Assets.Scripts
 			SpinResult result = new SpinResult();
 			if (CheckDamageTypes(lineFirst)) {
 				result.type = ResultType.TAKE_ENEMY_DAMAGE;
-				result.damage = types[lineFirst].TakeDamageX2();
-				result.effect = types[lineFirst];
 			} else if (CheckMoneyTypes(lineFirst)) {
 				result.type = ResultType.GET_MONEY;
-				result.money = types[lineFirst].TakeMoneyX2();
-				result.effect = types[lineFirst];
 			}
-
+			result.effects = types[lineFirst].GetEffects();
+			foreach(BaseEffect effect in result.effects) {
+				effect.SetMultiplier(Multiplier.X2);
+			}
+			result.sprite = types[lineFirst].sprite;
 			return result;
 		}
 
@@ -108,14 +115,14 @@ namespace Assets.Scripts
 			SpinResult result = new SpinResult();
 			if (CheckDamageTypes(lineFirst)) {
 				result.type = ResultType.TAKE_ENEMY_DAMAGE;
-				result.damage = types[lineFirst].TakeDamageX3();
-				result.effect = types[lineFirst];
 			} else if (CheckMoneyTypes(lineFirst)) {
 				result.type = ResultType.GET_MONEY;
-				result.money = types[lineFirst].TakeMoneyX3();
-				result.effect = types[lineFirst];
 			}
-
+			result.effects = types[lineFirst].GetEffects();
+			foreach (BaseEffect effect in result.effects) {
+				effect.SetMultiplier(Multiplier.X3);
+			}
+			result.sprite = types[lineFirst].sprite;
 			return result;
 		}
 

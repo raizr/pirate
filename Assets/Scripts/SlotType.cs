@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Effects;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -8,36 +10,25 @@ namespace Assets.Scripts
 		FIRE = 2,
 		LIGHT = 3,
 		POISEN = 4
-	}
-
+	} 
+	
 	public class SlotType : MonoBehaviour
-	{
+{
 
 		public CellSymbol type = CellSymbol.EMPTY;
 		public Sprite sprite;
 		public float frequency = 50;
-		public float damage = 1;
-		public float multiplierX2 = 1;
-		public float multiplierX3 = 1;
-		
-		public int money = 100;
-		public float moneyMultiplierX2 = 50;
-		public float moneyMultiplierX3 = 100;
-		private void Awake() { gameObject.SetActive(false); }
+		private List<BaseEffect> effects = new List<BaseEffect>();
 
-		public float TakeDamageX2() {
-			return damage * multiplierX2;
+		void Awake() {
+			gameObject.SetActive(false);
 		}
 
-		public float TakeDamageX3() {
-			return damage * multiplierX3;
+		public void Init() {
+			GetComponents(effects);
 		}
-
-		public int TakeMoneyX2() {
-			return (int) (money * moneyMultiplierX2);
-		}
-		public int TakeMoneyX3() {
-			return (int) (money * moneyMultiplierX3);
+		public List<BaseEffect> GetEffects() {
+			return effects;
 		}
 	}
 }

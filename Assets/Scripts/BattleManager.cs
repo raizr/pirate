@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Assets.Scripts.Effects;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -136,15 +137,15 @@ namespace Assets.Scripts
 			}
 
 			else {
-				fadeLayer.FadeOnEffect(currentResult.effect, ApplyEffect);
+				fadeLayer.FadeOnEffect(currentResult.sprite, ApplyEffect);
 			}
-
-			Debug.Log("type " + currentResult.type + " damage " + currentResult.damage + " money " + currentResult.money);
 		}
 
 		void ApplyEffect() {
 			if (currentResult.type == ResultType.TAKE_ENEMY_DAMAGE) {
-				enemy.DoDamage(currentResult);
+				foreach (BaseEffect effect in currentResult.effects) {
+					effect.AcceptEffect(enemy);
+				}
 			}
 			spinOnClick();
 		}
